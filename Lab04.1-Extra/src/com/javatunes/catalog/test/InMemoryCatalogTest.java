@@ -28,7 +28,7 @@ class InMemoryCatalogTest {
 //         testFindByKeyword();
 //         testFindByCategory();
         // testSize();
-//         testGetAll();
+         testGetAll();
 //           testGetSelfTitledAlbums();
     }
 
