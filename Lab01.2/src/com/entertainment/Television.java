@@ -1,5 +1,7 @@
 package com.entertainment;
 
+import java.util.Objects;
+
 public class Television {
     private String brand;
     private int volume;
@@ -42,18 +44,28 @@ public class Television {
     }
 
     @Override
+    public int hashCode() {
+//        return getBrand().length() + getVolume();
+        //de
+        return Objects.hash(getBrand(), getVolume());
+    }
+
+    @Override
     public boolean equals(Object obj) {
         boolean result = false;
         // only proceed if 'obj' is a reference to a Television Object
         if (obj instanceof Television) {
             //downcast 'obj' to more specific type Television, to call Television methods
             Television other = (Television) obj;
+
             // do the checks: business equality is defined as brand and volume are the same
-            result = this.getBrand().equals(other.getBrand()) &&
-                     this.getVolume() == other.getVolume();
+            result = Objects.equals(this.getBrand(), other.getBrand()) && //null-safe check
+                     this.getVolume() == other.getVolume(); //primitives cant be null
         }
         return result;
     }
+
+
 
     //toString
     @Override
