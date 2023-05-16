@@ -1,8 +1,10 @@
 package com.entertainment;
 
 import java.util.Objects;
-
-public class Television {
+/*
+ * Natural order is defined by brand (String).
+ */
+public class Television implements Comparable<Television> {
     private String brand;
     private int volume;
 
@@ -41,6 +43,15 @@ public class Television {
 
     public void changeChannel(int channel) {
         tuner.setChannel(channel);
+    }
+
+    @Override
+    public int compareTo(Television other) {
+        int result = this.getBrand().compareTo(other.getBrand());
+        if (result == 0) {// if tied on brand, break the tie by volume.
+            result = Integer.compare(this.getVolume(), other.getVolume())
+;         }
+        return result;
     }
 
     @Override
