@@ -10,9 +10,15 @@ package com.javatunes.billing;
 
 /**
  * Online orders are tax-free!
- * 
+ * <p>
  * TODO: implement this algorithm.
  */
-public class OnlineTax {
+public class OnlineTax implements TaxCalculator {
 
+    private static final double onlineTax = 0.0;
+
+    @Override
+    public double taxAmount(double taxable) {
+        return onlineTax;
+    }
 }
