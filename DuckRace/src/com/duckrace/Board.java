@@ -3,10 +3,7 @@ package com.duckrace;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /*
  * This is a lookup table of ids to student names.
@@ -41,14 +38,54 @@ import java.util.TreeMap;
  *   17       17    Dom        1    DEBIT_CARD
  */
 
-class Board {
+public class Board {
     private final Map<Integer,String> studentIdMap = loadStudentIdMap();
 
     private final Map<Integer,DuckRacer> racerMap  = new TreeMap<>();
 
-    // FOR TESTING PURPOSES
-    void dumpStudentIdMap() {
-        System.out.println(studentIdMap);
+    /*
+     * Updates the board (racerMap) by making a DuckRacer "win".
+     * This could mean fetching an existing DuckRacer form racerMap.
+     * or we might need to create a new DuckRacer and put in the map
+     * Either way, we need to make it "win"
+     */
+
+    public void update(int id, Reward reward) {
+        DuckRacer racer = null;
+       if (racerMap.containsKey(id)) {
+           racer = racerMap.get(id);
+       }
+       else {
+            racer = new DuckRacer(id, studentIdMap.get(id));
+            racerMap.put(id, racer);
+       }
+       racer.win(reward);
+    }
+
+
+    //TODO: render this data "pretty", for display to the end user
+    // show the DuckRacers (only), i.e., the right side of the map
+    // see Java part 1 session 5 formatted output
+    public void show() {
+        // if racerMap is empty, print "currently no results to show"
+        // otherwise the data (as we are doing below)
+        if (racerMap.isEmpty()) {
+            System.out.println("Currently no results to show");
+        }
+        else {
+            Collection<DuckRacer> racers = racerMap.values();
+
+            System.out.println("Duck Race Results");
+            System.out.println("=================\n");
+
+            System.out.println("id   name   wins  rewards");
+            System.out.println("--   ----   ----  -------");
+
+            for (DuckRacer racer : racers) {
+                System.out.printf("%2d  %-8s  %2d  %s\n",
+                        racer.getId(), racer.getName(), racer.getWins(), racer.getRewards());
+            }
+        }
     }
 
     private Map<Integer, String> loadStudentIdMap() {
@@ -68,5 +105,6 @@ class Board {
         }
         return idMap;
     }
+
 
 }
