@@ -3,18 +3,16 @@ package com.duckrace.app;
 import com.duckrace.Board;
 import com.duckrace.Reward;
 
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-import java.util.Locale;
 import java.util.Scanner;
 
 /*
  * Application "controller."
- * Sets up the system classes, orchestrates overall flow of the application.
+ * Sets up the system objects, orchestrates overall flow of the application.
  * Prompts user for inputs and "forwards" those inputs into the system (back end).
  */
 public class DuckRaceApp {
     private final Scanner scanner = new Scanner(System.in); // read inputs from console
-    private final Board board = new Board();
+    private final Board board = Board.getInstance();
     private int max_input;
 
     public void execute() {
@@ -41,8 +39,7 @@ public class DuckRaceApp {
                 validInput = true;
                 if ("D".equals(input)) {
                     reward = Reward.DEBIT_CARD;
-                }
-                else {
+                } else {
                     reward = Reward.PRIZES;
                 }
             }
