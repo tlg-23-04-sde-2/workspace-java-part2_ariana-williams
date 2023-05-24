@@ -14,6 +14,7 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 @Ignore("this effectively ignores all the test methods in this test class")
 public class TelevisionTest {
 
@@ -22,7 +23,7 @@ public class TelevisionTest {
      * It should be marked as a failed test if it takes longer than that.
      */
     @Ignore("James needs to fix this, it runs too slowly")
-    @Test(timeout=2500)
+    @Test(timeout = 2500)
     public void connectToNetwork_completesWithinTimeout() {
         Television tv = new Television();
         tv.connectToNetwork();
