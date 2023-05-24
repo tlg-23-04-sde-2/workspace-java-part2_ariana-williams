@@ -9,6 +9,7 @@
 package com.javatunes.catalog;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // OF COURSE THIS CLASS DOESN'T COMPILE
 // Your first job is to fulfill the contract that this class has signed.
@@ -35,6 +36,12 @@ public class InMemoryCatalog implements Catalog {
         new MusicItem(17L, "1984",                      "Van Halen",                 "1984-08-19", 11.97, MusicCategory.ROCK),
         new MusicItem(18L, "Escape",                    "Journey",                   "1981-02-25", 11.97, MusicCategory.CLASSIC_ROCK))
     );
+/*
+ * Stream<T>
+ * IntStream
+ * LongStream
+ * DoubleStream
+ */
 
     @Override
     public MusicItem findById(Long id) {
@@ -51,6 +58,12 @@ public class InMemoryCatalog implements Catalog {
 
     @Override
     public Collection<MusicItem> findByKeyword(String keyword) {
+         Collection<MusicItem> result = catalogData.stream()
+                .filter(item -> item.getTitle().contains(keyword) || item.getArtist().contains(keyword))
+                .collect(Collectors.toList());
+         return result;
+
+        /*
         //return variable
         Collection<MusicItem> result = new ArrayList<>();
         for (MusicItem currItem : catalogData) {
@@ -60,19 +73,23 @@ public class InMemoryCatalog implements Catalog {
             }
         }
         return result;
+        */
     }
 
     @Override
     public Collection<MusicItem> findByCategory(MusicCategory category) {
+        return catalogData.stream()
+                .filter(item -> item.getMusicCategory().equals(category))
+                .collect(Collectors.toList());
         //return variable
-        Collection<MusicItem> result = new ArrayList<>();
+       /* Collection<MusicItem> result = new ArrayList<>();
         for (MusicItem currItem : catalogData) {
             if (currItem.getMusicCategory().equals(category)) {
                 result.add(currItem);
             }
         }
 
-        return result;
+        return result;*/
     }
 
     @Override
@@ -143,8 +160,9 @@ public class InMemoryCatalog implements Catalog {
      * TASK: how many items of the specified genre (MusicCategory) do we sell?
      */
     public int genreCount(MusicCategory genre) {
-        int count = 0;
-
+        int count = (int) catalogData.stream()
+                .filter(item -> item.getMusicCategory().equals(genre))
+                .count();
         return count;
     }
 

@@ -25,11 +25,18 @@ class InMemoryCatalogTestMain {
      */
     public static void main(String[] args) {
 //         testFindById();
-//         testFindByKeyword();
+         testFindByKeyword();
 //         testFindByCategory();
         // testSize();
-         testGetAll();
+//         testGetAll();
 //           testGetSelfTitledAlbums();
+//        testGenreCount();
+    }
+
+    private static void testGenreCount() {
+        InMemoryCatalog catalog = new InMemoryCatalog();
+        int counted = catalog.genreCount(MusicCategory.POP);
+        System.out.println(counted);
     }
 
     private static void testGetSelfTitledAlbums() {
