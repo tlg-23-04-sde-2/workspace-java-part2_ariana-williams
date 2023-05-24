@@ -53,10 +53,11 @@ public class Television implements Comparable<Television> {
 ;         }
         return result;
     }
-
+/*
+code written with Jay
     @Override
     public int hashCode() {
-//        return getBrand().length() + getVolume();
+
         //de
         return Objects.hash(getBrand(), getVolume());
     }
@@ -64,8 +65,8 @@ public class Television implements Comparable<Television> {
     @Override
     public boolean equals(Object obj) {
         boolean result = false;
-        // only proceed if 'obj' is a reference to a Television Object
-        if (obj instanceof Television) {
+        // only proceed if 'obj' is a reference to another Television object (EXACT type match)
+        if (this.getClass() == obj.getClass()) {
             //downcast 'obj' to more specific type Television, to call Television methods
             Television other = (Television) obj;
 
@@ -76,7 +77,31 @@ public class Television implements Comparable<Television> {
         return result;
     }
 
+*/
 
+    @Override
+    public boolean equals(Object obj) {
+        // if I and obj are the same physical object
+        if (this == obj) {
+            return true;
+        }
+        // is obj null? OR
+        // is obj a different type than me?
+        // comparing Class objects is an EXACT type check (not an IS-A match)
+        if (obj == null || this.getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Television that = (Television) obj;
+
+        return getVolume() == that.getVolume() &&
+                Objects.equals(this.getBrand(), that.getBrand());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBrand(), getVolume());
+    }
 
     //toString
     @Override
